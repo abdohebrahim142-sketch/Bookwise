@@ -38,6 +38,11 @@ const seed = async () => {
   console.log("Seeding data...");
 
   try {
+    // 1. تنظيف جدول الكتب بالكامل أولاً عشان نمنع إيرور الـ Duplicate
+    await db.delete(books);
+    console.log("Cleared existing books from database...");
+
+    // 2. اللوب القديم بتاعك زي ما هو هيبدأ يرفع ويضيف من جديد
     for (const book of dummyBooks) {
       const coverUrl = (await uploadToImageKit(
         book.coverUrl,
